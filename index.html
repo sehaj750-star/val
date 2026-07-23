@@ -88,10 +88,37 @@
     }
 
     #noBtn {
-      left: 62%;
+      position: relative;
+      top: auto;
+      left: auto;
       background: #e5e7eb;
       color: #111827;
       transition: background .12s ease;
+      animation: noFloat 2.8s ease-in-out infinite;
+      will-change: transform;
+    }
+
+    .no-btn-shell {
+      position: absolute;
+      top: 50%;
+      left: 62%;
+      transform: translateY(-50%);
+      z-index: 2;
+    }
+
+    @keyframes noFloat {
+      0%, 100% {
+        transform: translate3d(0, 0, 0) rotate(-1.5deg);
+      }
+      25% {
+        transform: translate3d(7px, -11px, 0) rotate(1.5deg);
+      }
+      50% {
+        transform: translate3d(-5px, -7px, 0) rotate(-1deg);
+      }
+      75% {
+        transform: translate3d(-9px, -13px, 0) rotate(1deg);
+      }
     }
 
     @media (pointer: coarse) {
@@ -184,7 +211,9 @@
 
     <section class="button-zone" id="zone">
       <button id="yesBtn">Yes</button>
-      <button id="noBtn">No</button>
+      <div class="no-btn-shell" id="noBtnShell">
+        <button id="noBtn">No</button>
+      </div>
     </section>
 
     <!-- HINT -->
@@ -204,6 +233,7 @@
     const zone = document.getElementById("zone");
     const yesBtn = document.getElementById("yesBtn");
     const noBtn = document.getElementById("noBtn");
+    const noBtnShell = document.getElementById("noBtnShell");
     const result = document.getElementById("result");
     const hint = document.getElementById("hint");
 
@@ -268,14 +298,14 @@
     }
 
     function placeNo(left, top) {
-      noBtn.style.left = left + "px";
-      noBtn.style.top = top + "px";
-      noBtn.style.transform = "none";
+      noBtnShell.style.left = left + "px";
+      noBtnShell.style.top = top + "px";
+      noBtnShell.style.transform = "none";
     }
 
     function zoneBounds() {
       const z = zone.getBoundingClientRect();
-      const b = noBtn.getBoundingClientRect();
+      const b = noBtnShell.getBoundingClientRect();
       return {
         z,
         maxLeft: Math.max(0, z.width - b.width),
@@ -316,7 +346,7 @@
 
     function moveNo(px, py) {
       const { z, maxLeft, maxTop } = zoneBounds();
-      const b = noBtn.getBoundingClientRect();
+      const b = noBtnShell.getBoundingClientRect();
 
       let dx = (b.left + b.width / 2) - px;
       let dy = (b.top + b.height / 2) - py;
@@ -336,7 +366,7 @@
     }
 
     function chasePointer(px, py) {
-      const b = noBtn.getBoundingClientRect();
+      const b = noBtnShell.getBoundingClientRect();
       const d = Math.hypot(
         (b.left + b.width / 2) - px,
         (b.top + b.height / 2) - py
