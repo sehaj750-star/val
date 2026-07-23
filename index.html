@@ -294,40 +294,30 @@
     const venueSub = document.getElementById("venueSub");
     const hint = document.getElementById("hint");
 
-    /* ---------- NOTIFY YOU WHEN SHE PICKS ---------- */
+    /* ---------- NOTIFY YOU BY EMAIL ---------- */
     const NOTIFY = {
-      // Install the "ntfy" app (iOS/Android), subscribe to this topic for instant alerts.
-      ntfyTopic: "jayita-date-sehaj750",
-      // Optional: your email for a backup email (verify once at formsubmit.co).
+      // Your email — you'll get a message when she says yes or picks a day.
+      // FormSubmit will send a one-time verification link the first time; click it to activate.
       email: ""
     };
 
-    async function notifyYou(message, subject = "Date page update") {
-      if (NOTIFY.ntfyTopic) {
-        fetch(`https://ntfy.sh/${NOTIFY.ntfyTopic}`, {
-          method: "POST",
-          body: message,
-          headers: {
-            Title: subject,
-            Priority: "high",
-            Tags: "heart"
-          }
-        }).catch(() => {});
-      }
+    async function notifyYou(message, subject = "Jayita — date page update") {
+      if (!NOTIFY.email) return;
 
-      if (NOTIFY.email) {
-        fetch(`https://formsubmit.co/ajax/${encodeURIComponent(NOTIFY.email)}`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json"
-          },
-          body: JSON.stringify({
-            _subject: subject,
-            message
-          })
-        }).catch(() => {});
-      }
+      await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(NOTIFY.email)}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        },
+        body: JSON.stringify({
+          _subject: subject,
+          _template: "table",
+          message,
+          page: "https://sehaj750-star.github.io/val/",
+          time: new Date().toLocaleString("en-AU", { timeZone: "Australia/Sydney" })
+        })
+      }).catch(() => {});
     }
 
     /* ---------- CONFETTI ---------- */
