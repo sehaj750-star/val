@@ -294,6 +294,42 @@
     const venueSub = document.getElementById("venueSub");
     const hint = document.getElementById("hint");
 
+    /* ---------- NOTIFY YOU WHEN SHE PICKS ---------- */
+    const NOTIFY = {
+      // Install the "ntfy" app (iOS/Android), subscribe to this topic for instant alerts.
+      ntfyTopic: "jayita-date-sehaj750",
+      // Optional: your email for a backup email (verify once at formsubmit.co).
+      email: ""
+    };
+
+    async function notifyYou(message, subject = "Date page update") {
+      if (NOTIFY.ntfyTopic) {
+        fetch(`https://ntfy.sh/${NOTIFY.ntfyTopic}`, {
+          method: "POST",
+          body: message,
+          headers: {
+            Title: subject,
+            Priority: "high",
+            Tags: "heart"
+          }
+        }).catch(() => {});
+      }
+
+      if (NOTIFY.email) {
+        fetch(`https://formsubmit.co/ajax/${encodeURIComponent(NOTIFY.email)}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json"
+          },
+          body: JSON.stringify({
+            _subject: subject,
+            message
+          })
+        }).catch(() => {});
+      }
+    }
+
     /* ---------- CONFETTI ---------- */
     const confettiCanvas = document.getElementById("confettiCanvas");
 
@@ -525,6 +561,7 @@
     document.querySelectorAll(".choice-btn").forEach(btn => {
       btn.addEventListener("click", () => {
         const day = btn.dataset.day;
+        notifyYou(`Jayita picked ${day} for the date!`, "She picked a day 💕");
         venueSub.textContent = `Can't wait for ${day}! Venue details coming your way ✨`;
         showScreen(venueScreen);
         resizeConfettiCanvas();
@@ -534,6 +571,7 @@
 
     /* ---------- YES CLICK ---------- */
     yesBtn.addEventListener("click", () => {
+      notifyYou("Jayita said YES to the date!", "She said yes! 🎉");
       showScreen(dateScreen);
       resizeConfettiCanvas();
       fullScreenConfetti();
