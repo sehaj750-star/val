@@ -263,15 +263,35 @@ function showScreen(screen) {
   venueScreen.classList.toggle("active", screen === venueScreen);
 }
 
-document.querySelectorAll(".choice-btn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    const day = btn.dataset.day;
-    notifyYou(`${PERSON.name} picked ${day} for the date!`, `${PERSON.name} picked a day 💕`);
-    venueSub.textContent = `Can't wait for ${day}! Venue details coming your way ✨`;
-    showScreen(venueScreen);
-    resizeConfettiCanvas();
-    fullScreenConfetti();
-  });
+function confirmDay(day) {
+  const trimmed = day.trim();
+  if (!trimmed) return;
+
+  notifyYou(`${PERSON.name} picked ${trimmed} for the date!`, `${PERSON.name} picked a day 💕`);
+  venueSub.textContent = `Can't wait for ${trimmed}! Venue details coming your way ✨`;
+  showScreen(venueScreen);
+  resizeConfettiCanvas();
+  fullScreenConfetti();
+}
+
+document.querySelectorAll(".choice-btn[data-day]").forEach(btn => {
+  btn.addEventListener("click", () => confirmDay(btn.dataset.day));
+});
+
+const otherDayBtn = document.getElementById("otherDayBtn");
+const otherDayForm = document.getElementById("otherDayForm");
+const otherDayInput = document.getElementById("otherDayInput");
+const otherDaySubmit = document.getElementById("otherDaySubmit");
+
+otherDayBtn.addEventListener("click", () => {
+  otherDayForm.classList.add("active");
+  otherDayInput.focus();
+});
+
+otherDaySubmit.addEventListener("click", () => confirmDay(otherDayInput.value));
+
+otherDayInput.addEventListener("keydown", e => {
+  if (e.key === "Enter") confirmDay(otherDayInput.value);
 });
 
 yesBtn.addEventListener("click", () => {

@@ -171,9 +171,55 @@ button {
 
 .choice-btn:nth-child(2) { animation-delay: 0.25s; }
 .choice-btn:nth-child(3) { animation-delay: 0.5s; }
+.choice-btn:nth-child(4) { animation-delay: 0.75s; }
 
-.choice-btn:hover {
+.choice-btn:hover:not(.other-option):not(.other-submit) {
   background: var(--yesHover);
+}
+
+.choice-btn.other-option {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+.choice-btn.other-option:hover {
+  background: #d1d5db;
+}
+
+.other-day-form {
+  display: none;
+  margin-top: 4px;
+  animation: pop .35s ease;
+}
+
+.other-day-form.active {
+  display: block;
+}
+
+.other-label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 15px;
+  opacity: 0.8;
+}
+
+.other-day-input {
+  width: 100%;
+  padding: 16px 18px;
+  font-size: 18px;
+  border: 2px solid #ffc2d6;
+  border-radius: 16px;
+  background: #fff;
+  margin-bottom: 12px;
+  outline: none;
+}
+
+.other-day-input:focus {
+  border-color: var(--yes);
+}
+
+.other-submit {
+  animation: none;
 }
 
 .step-gif {
