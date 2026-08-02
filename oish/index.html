@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title></title>
+  <link rel="stylesheet" href="../assets/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+  <canvas id="confettiCanvas"></canvas>
+
+  <main class="card">
+    <div id="askScreen">
+      <svg class="art" viewBox="0 0 320 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="fur" x1="0" x2="1">
+            <stop offset="0" stop-color="#f7c7a1"/>
+            <stop offset="1" stop-color="#f2a97b"/>
+          </linearGradient>
+          <linearGradient id="heart" x1="0" x2="1">
+            <stop offset="0" stop-color="#ff4d7d"/>
+            <stop offset="1" stop-color="#ff1f68"/>
+          </linearGradient>
+        </defs>
+        <path d="M250 50 C250 33 270 25 282 38 C294 25 314 33 314 50 C314 78 282 92 282 106 C282 92 250 78 250 50Z" fill="url(#heart)"/>
+        <path d="M90 120 C90 70 140 40 190 60 C240 40 290 70 290 120 C290 180 240 210 190 210 C140 210 90 180 90 120Z" fill="url(#fur)"/>
+        <path d="M110 92 L95 55 L140 78 Z" fill="#f2a97b"/>
+        <path d="M270 92 L285 55 L240 78 Z" fill="#f2a97b"/>
+        <circle cx="160" cy="130" r="8"/>
+        <circle cx="220" cy="130" r="8"/>
+        <path d="M190 144 C186 144 182 148 182 152 C182 160 190 164 190 170 C190 164 198 160 198 152 C198 148 194 144 190 144Z" fill="#ff7aa2"/>
+      </svg>
+
+      <h1 id="askTitle"></h1>
+
+      <section class="button-zone" id="zone">
+        <button id="yesBtn">Yes</button>
+        <div class="no-btn-shell" id="noBtnShell">
+          <button id="noBtn">No</button>
+        </div>
+      </section>
+
+      <div class="hint" id="hint">“No” seems a bit shy 😈</div>
+    </div>
+
+    <section class="step-screen" id="dateScreen">
+      <h2>Next Week</h2>
+      <p class="step-sub">When are you free?</p>
+      <div class="choice-zone">
+        <button class="choice-btn" type="button" data-day="Wednesday">Wednesday</button>
+        <button class="choice-btn" type="button" data-day="Thursday">Thursday</button>
+        <button class="choice-btn" type="button" data-day="Friday">Friday</button>
+      </div>
+    </section>
+
+    <section class="step-screen" id="venueScreen">
+      <h2>Venue to follow soon</h2>
+      <p class="step-sub" id="venueSub">Can't wait — details coming your way! ✨</p>
+      <img
+        class="step-gif"
+        src="https://media.giphy.com/media/3o7abKhOpu0NwenH3O/giphy.gif"
+        alt="Excited for the date"
+      />
+    </section>
+  </main>
+
+  <script>window.PERSON = { name: "Oish", slug: "oish" };</script>
+  <script src="../assets/app.js"></script>
+</body>
+</html>
