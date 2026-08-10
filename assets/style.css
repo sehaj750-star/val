@@ -82,7 +82,7 @@ button {
   background: #e5e7eb;
   color: #111827;
   transition: background .12s ease;
-  animation: noFloat 2.8s ease-in-out infinite;
+  animation: noFloat 1.6s ease-in-out infinite;
   will-change: transform;
 }
 
@@ -104,13 +104,16 @@ button {
 
 @keyframes noFloat {
   0%, 100% {
-    transform: translate3d(0, 0, 0) rotate(-1deg);
+    transform: translate3d(0, 0, 0) rotate(-3deg);
   }
-  33% {
-    transform: translate3d(8px, -10px, 0) rotate(1deg);
+  25% {
+    transform: translate3d(14px, -16px, 0) rotate(4deg);
   }
-  66% {
-    transform: translate3d(5px, -6px, 0) rotate(-0.5deg);
+  50% {
+    transform: translate3d(8px, -10px, 0) rotate(-2deg);
+  }
+  75% {
+    transform: translate3d(18px, -20px, 0) rotate(3deg);
   }
 }
 

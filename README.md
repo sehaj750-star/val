@@ -8,11 +8,14 @@ Personalized date invite pages hosted on GitHub Pages.
 |--------|-----|
 | Jayita | https://sehaj750-star.github.io/val/jayita/ |
 | Oish   | https://sehaj750-star.github.io/val/oish/ |
+| Mamta  | https://sehaj750-star.github.io/val/mamta/ (Yes → final page, no day picker) |
 
 ## Add someone new
 
 ```bash
 node scripts/new-person.mjs "Their Name"
+node scripts/new-person.mjs "Their Name" --skip-days   # skip day picker on Yes
+```
 git add .
 git commit -m "Add page for Their Name"
 git push

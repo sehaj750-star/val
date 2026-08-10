@@ -286,7 +286,14 @@ document.querySelectorAll(".choice-btn[data-day]").forEach(btn => {
 
 yesBtn.addEventListener("click", () => {
   notifyYou(`${PERSON.name} said YES to the date!`, `${PERSON.name} said yes! 🎉`);
-  showScreen(dateScreen);
+
+  if (PERSON.skipDatePicker) {
+    venueSub.textContent = "Can't wait — venue details coming your way! ✨";
+    showScreen(venueScreen);
+  } else {
+    showScreen(dateScreen);
+  }
+
   resizeConfettiCanvas();
   fullScreenConfetti();
 });
