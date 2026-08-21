@@ -1,4 +1,4 @@
-const PERSON = window.PERSON || { name: "Jayita", slug: "jayita" };
+const PERSON = window.PERSON || { name: "Tammy", slug: "tammy" };
 const PAGE_URL = `https://sehaj750-star.github.io/val/${PERSON.slug}/`;
 const askTitle = PERSON.askTitle || `${PERSON.name}, will you go on a date with me?`;
 
