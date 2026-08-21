@@ -30,6 +30,38 @@ if (choiceZone && PERSON.choices?.length) {
   }).join("");
 }
 
+function eveningTimes() {
+  const times = [];
+  for (let minutes = 19 * 60; minutes <= 24 * 60; minutes += 30) {
+    if (minutes === 24 * 60) {
+      times.push({ value: "12:00 AM", label: "12:00 AM" });
+      continue;
+    }
+    const hour24 = Math.floor(minutes / 60);
+    const mins = minutes % 60;
+    const hour12 = hour24 > 12 ? hour24 - 12 : hour24;
+    const stamp = `${hour12}:${String(mins).padStart(2, "0")} PM`;
+    times.push({ value: stamp, label: stamp });
+  }
+  return times;
+}
+
+const customTimeRow = document.getElementById("customTimeRow");
+const customTimeSelect = document.getElementById("customTimeSelect");
+const customTimeLabel = document.getElementById("customTimeLabel");
+if (PERSON.customTimeDropdown && customTimeRow && customTimeSelect) {
+  customTimeRow.hidden = false;
+  if (PERSON.customTimeLabel && customTimeLabel) {
+    customTimeLabel.textContent = PERSON.customTimeLabel;
+  }
+  eveningTimes().forEach(time => {
+    const option = document.createElement("option");
+    option.value = time.value;
+    option.textContent = time.label;
+    customTimeSelect.appendChild(option);
+  });
+}
+
 const zone = document.getElementById("zone");
 const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
@@ -313,6 +345,12 @@ function confirmDay(day) {
 document.querySelectorAll(".choice-btn[data-day]").forEach(btn => {
   btn.addEventListener("click", () => confirmDay(btn.dataset.day));
 });
+
+if (customTimeSelect) {
+  customTimeSelect.addEventListener("change", () => {
+    if (customTimeSelect.value) confirmDay(customTimeSelect.value);
+  });
+}
 
 yesBtn.addEventListener("click", () => {
   notifyYou(
