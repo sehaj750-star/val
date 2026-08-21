@@ -9,6 +9,7 @@ Personalized date invite pages hosted on GitHub Pages.
 | Jayita | https://sehaj750-star.github.io/val/jayita/ |
 | Oish   | https://sehaj750-star.github.io/val/oish/ |
 | Mamta  | https://sehaj750-star.github.io/val/mamta/ (Yes → final page, no day picker) |
+| Tammy  | https://sehaj750-star.github.io/val/tammy/ (virtual date, Saturday times in NZ) |
 
 ## Add someone new
 

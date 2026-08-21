@@ -1,9 +1,34 @@
 const PERSON = window.PERSON || { name: "Jayita", slug: "jayita" };
 const PAGE_URL = `https://sehaj750-star.github.io/val/${PERSON.slug}/`;
-const askTitle = `${PERSON.name}, will you go on a date with me?`;
+const askTitle = PERSON.askTitle || `${PERSON.name}, will you go on a date with me?`;
 
 document.title = askTitle;
 document.getElementById("askTitle").textContent = askTitle;
+
+const askSub = document.getElementById("askSub");
+if (PERSON.askSub && askSub) {
+  askSub.hidden = false;
+  askSub.textContent = PERSON.askSub;
+}
+
+const pickerTitle = document.getElementById("pickerTitle");
+const pickerSub = document.getElementById("pickerSub");
+const pickerNote = document.getElementById("pickerNote");
+const choiceZone = document.querySelector("#dateScreen .choice-zone");
+
+if (pickerTitle && PERSON.pickerTitle) pickerTitle.textContent = PERSON.pickerTitle;
+if (pickerSub && PERSON.pickerSub) pickerSub.textContent = PERSON.pickerSub;
+if (pickerNote && PERSON.pickerNote) {
+  pickerNote.hidden = false;
+  pickerNote.textContent = PERSON.pickerNote;
+}
+if (choiceZone && PERSON.choices?.length) {
+  choiceZone.innerHTML = PERSON.choices.map(choice => {
+    const value = typeof choice === "string" ? choice : choice.value;
+    const label = typeof choice === "string" ? choice : choice.label;
+    return `<button class="choice-btn" type="button" data-day="${value}">${label}</button>`;
+  }).join("");
+}
 
 const zone = document.getElementById("zone");
 const yesBtn = document.getElementById("yesBtn");
@@ -13,6 +38,8 @@ const askScreen = document.getElementById("askScreen");
 const dateScreen = document.getElementById("dateScreen");
 const venueScreen = document.getElementById("venueScreen");
 const venueSub = document.getElementById("venueSub");
+const venueTitle = venueScreen?.querySelector("h2");
+if (venueTitle && PERSON.venueTitle) venueTitle.textContent = PERSON.venueTitle;
 
 const NOTIFY = {
   email: "sehaj750@gmail.com"
@@ -270,6 +297,9 @@ function confirmDay(day) {
       `${PERSON.name} picked Other 💬`
     );
     venueSub.textContent = "Venue to follow soon — I'll message you to pick the day! ✨";
+  } else if (PERSON.picker === "times") {
+    notifyYou(`${PERSON.name} picked ${day} (NZ time) for the virtual date!`, `${PERSON.name} picked a time 💕`);
+    venueSub.textContent = `Can't wait for Saturday at ${day} (NZ time)! I'll send the link ✨`;
   } else {
     notifyYou(`${PERSON.name} picked ${day} for the date!`, `${PERSON.name} picked a day 💕`);
     venueSub.textContent = `Can't wait for ${day}! Venue details coming your way ✨`;
@@ -285,10 +315,13 @@ document.querySelectorAll(".choice-btn[data-day]").forEach(btn => {
 });
 
 yesBtn.addEventListener("click", () => {
-  notifyYou(`${PERSON.name} said YES to the date!`, `${PERSON.name} said yes! 🎉`);
+  notifyYou(
+    PERSON.yesMessage || `${PERSON.name} said YES to the date!`,
+    PERSON.yesSubject || `${PERSON.name} said yes! 🎉`
+  );
 
   if (PERSON.skipDatePicker) {
-    venueSub.textContent = "Can't wait — venue details coming your way! ✨";
+    venueSub.textContent = PERSON.venueSub || "Can't wait — venue details coming your way! ✨";
     showScreen(venueScreen);
   } else {
     showScreen(dateScreen);
