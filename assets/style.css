@@ -246,9 +246,18 @@ button {
 
 .scribble-arrow {
   flex: 0 0 auto;
+  overflow: visible;
+}
+
+.scribble-arrow-horizontal {
   width: 72px;
   height: 28px;
-  overflow: visible;
+}
+
+.scribble-arrow-vertical {
+  width: 28px;
+  height: 54px;
+  margin: 2px auto 8px;
 }
 
 .custom-time-select {
@@ -278,11 +287,16 @@ button {
     text-align: center;
   }
 
-  .scribble-arrow {
-    width: 36px;
-    height: 52px;
-    margin: -4px auto;
-    transform: rotate(90deg);
+  .scribble-arrow-horizontal {
+    width: 56px;
+    height: 24px;
+    margin: 0 auto;
+  }
+
+  .scribble-arrow-vertical {
+    width: 28px;
+    height: 48px;
+    margin: 2px auto 8px;
   }
 
   .custom-time-select {

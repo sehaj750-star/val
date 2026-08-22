@@ -56,7 +56,8 @@ const customTimeRow = document.getElementById("customTimeRow");
 const customTimeSelect = document.getElementById("customTimeSelect");
 const customTimeLabel = document.getElementById("customTimeLabel");
 const customTimeCaption = document.getElementById("customTimeCaption");
-const scribbleArrow = customTimeRow?.querySelector(".scribble-arrow");
+const scribbleArrowHorizontal = customTimeRow?.querySelector(".scribble-arrow-horizontal");
+const scribbleArrowVertical = customTimeRow?.querySelector(".scribble-arrow-vertical");
 
 if (pickerSub && PERSON.pickerSub === "") pickerSub.hidden = true;
 
@@ -67,13 +68,17 @@ if (PERSON.customTimeDropdown && customTimeRow && customTimeSelect) {
     customTimeCaption.hidden = false;
     customTimeCaption.textContent = PERSON.customTimeCaption;
     if (customTimeLabel) customTimeLabel.hidden = true;
-    if (scribbleArrow) scribbleArrow.hidden = true;
+    if (scribbleArrowHorizontal) scribbleArrowHorizontal.hidden = true;
+    if (scribbleArrowVertical && !PERSON.hideScribbleArrow) {
+      scribbleArrowVertical.hidden = false;
+    }
   } else if (PERSON.customTimeLabel && customTimeLabel) {
+    customTimeLabel.hidden = false;
     customTimeLabel.textContent = PERSON.customTimeLabel;
-  }
-
-  if (PERSON.hideScribbleArrow && scribbleArrow) {
-    scribbleArrow.hidden = true;
+    if (scribbleArrowVertical) scribbleArrowVertical.hidden = true;
+    if (scribbleArrowHorizontal && !PERSON.hideScribbleArrow) {
+      scribbleArrowHorizontal.hidden = false;
+    }
   }
 
   const timeOptions = PERSON.customTimeRange
