@@ -68,9 +68,13 @@ if (PERSON.customTimeDropdown && customTimeRow && customTimeSelect) {
     customTimeCaption.hidden = false;
     customTimeCaption.textContent = PERSON.customTimeCaption;
     if (customTimeLabel) customTimeLabel.hidden = true;
-    if (scribbleArrowHorizontal) scribbleArrowHorizontal.hidden = true;
+    if (scribbleArrowHorizontal) {
+      scribbleArrowHorizontal.hidden = true;
+      scribbleArrowHorizontal.style.display = "none";
+    }
     if (scribbleArrowVertical && !PERSON.hideScribbleArrow) {
       scribbleArrowVertical.hidden = false;
+      scribbleArrowVertical.style.display = "block";
     }
   } else if (PERSON.customTimeLabel && customTimeLabel) {
     customTimeLabel.hidden = false;
