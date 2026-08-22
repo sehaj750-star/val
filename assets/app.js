@@ -30,31 +30,57 @@ if (choiceZone && PERSON.choices?.length) {
   }).join("");
 }
 
-function eveningTimes() {
+function buildTimeOptions(range) {
+  const startHour = range?.startHour ?? 19;
+  const endHour = range?.endHour ?? 24;
+  const interval = range?.interval ?? 30;
   const times = [];
-  for (let minutes = 19 * 60; minutes <= 24 * 60; minutes += 30) {
-    if (minutes === 24 * 60) {
-      times.push({ value: "12:00 AM", label: "12:00 AM" });
-      continue;
-    }
+
+  for (let minutes = startHour * 60; minutes <= endHour * 60; minutes += interval) {
     const hour24 = Math.floor(minutes / 60);
     const mins = minutes % 60;
-    const hour12 = hour24 > 12 ? hour24 - 12 : hour24;
-    const stamp = `${hour12}:${String(mins).padStart(2, "0")} PM`;
+    const period = hour24 >= 12 ? "PM" : "AM";
+    const hour12 = hour24 % 12 || 12;
+    const stamp = `${hour12}:${String(mins).padStart(2, "0")} ${period}`;
     times.push({ value: stamp, label: stamp });
   }
+
   return times;
+}
+
+function eveningTimes() {
+  return buildTimeOptions({ startHour: 19, endHour: 24 });
 }
 
 const customTimeRow = document.getElementById("customTimeRow");
 const customTimeSelect = document.getElementById("customTimeSelect");
 const customTimeLabel = document.getElementById("customTimeLabel");
+const customTimeCaption = document.getElementById("customTimeCaption");
+const scribbleArrow = customTimeRow?.querySelector(".scribble-arrow");
+
+if (pickerSub && PERSON.pickerSub === "") pickerSub.hidden = true;
+
 if (PERSON.customTimeDropdown && customTimeRow && customTimeSelect) {
   customTimeRow.hidden = false;
-  if (PERSON.customTimeLabel && customTimeLabel) {
+
+  if (PERSON.customTimeCaption && customTimeCaption) {
+    customTimeCaption.hidden = false;
+    customTimeCaption.textContent = PERSON.customTimeCaption;
+    if (customTimeLabel) customTimeLabel.hidden = true;
+    if (scribbleArrow) scribbleArrow.hidden = true;
+  } else if (PERSON.customTimeLabel && customTimeLabel) {
     customTimeLabel.textContent = PERSON.customTimeLabel;
   }
-  eveningTimes().forEach(time => {
+
+  if (PERSON.hideScribbleArrow && scribbleArrow) {
+    scribbleArrow.hidden = true;
+  }
+
+  const timeOptions = PERSON.customTimeRange
+    ? buildTimeOptions(PERSON.customTimeRange)
+    : eveningTimes();
+
+  timeOptions.forEach(time => {
     const option = document.createElement("option");
     option.value = time.value;
     option.textContent = time.label;
@@ -329,6 +355,9 @@ function confirmDay(day) {
       `${PERSON.name} picked Other 💬`
     );
     venueSub.textContent = "Venue to follow soon — I'll message you to pick the day! ✨";
+  } else if (PERSON.picker === "timeConfirm") {
+    notifyYou(`${PERSON.name} confirmed ${day} for FaceTime tomorrow!`, `${PERSON.name} confirmed a time 💕`);
+    venueSub.textContent = `Perfect — FaceTime you tomorrow at ${day}! 📱✨`;
   } else if (PERSON.picker === "times") {
     notifyYou(`${PERSON.name} picked ${day} (NZ time) for the virtual date!`, `${PERSON.name} picked a time 💕`);
     venueSub.textContent = `Can't wait for Saturday at ${day} (NZ time)! I'll send the link ✨`;

@@ -7,6 +7,7 @@ Personalized date invite pages hosted on GitHub Pages.
 | Person | URL |
 |--------|-----|
 | Tammy  | https://sehaj750-star.github.io/val/tammy/ |
+| Monica | https://sehaj750-star.github.io/val/monica/ (FaceTime, confirm 7 PM) |
 
 ## Add someone new
 

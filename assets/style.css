@@ -216,6 +216,26 @@ button {
   text-align: left;
 }
 
+.custom-time-caption {
+  display: none;
+  width: 100%;
+  margin: 0 0 10px;
+  font-size: 15px;
+  font-weight: 600;
+  opacity: 0.82;
+  text-align: center;
+}
+
+.custom-time-caption:not([hidden]) {
+  display: block;
+}
+
+.custom-time-row:has(.custom-time-caption:not([hidden])) {
+  flex-direction: column;
+  align-items: stretch;
+  text-align: center;
+}
+
 .custom-time-label {
   flex: 1 1 auto;
   font-size: 15px;

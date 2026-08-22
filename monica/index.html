@@ -97,26 +97,27 @@
       <p class="step-sub" id="venueSub">Can't wait — details coming your way! ✨</p>
       <img
         class="step-gif"
-        src="https://media.giphy.com/media/3o7abKhOpu0NwenH3O/giphy.gif"
-        alt="Excited for the date"
+        src="https://media.giphy.com/media/l0HlBO7aX0BLPUAvu/giphy.gif"
+        alt="FaceTime call"
       />
     </section>
   </main>
 
   <script>window.PERSON = {
-    "name": "Tammy",
-    "slug": "tammy",
-    "askTitle": "Tammy, will you go on a virtual date with me tomorrow night?",
-    "askSub": "You see my questions just don't stop!",
-    "picker": "times",
-    "pickerTitle": "Tomorrow (Saturday)",
-    "pickerSub": "When are you free?",
-    "pickerNote": "Of course this is NZ time — I'm considerate of your timezone.",
-    "choices": ["9:30", "10:00", "10:30"],
+    "name": "Monica",
+    "slug": "monica",
+    "askTitle": "Monica, FaceTime tomorrow night?",
+    "picker": "timeConfirm",
+    "pickerTitle": "Does 7 PM still work?",
+    "pickerSub": "",
+    "choices": [{ "value": "7:00 PM", "label": "Yes — 7 PM works!" }],
     "customTimeDropdown": true,
-    "venueTitle": "Link to follow soon",
-    "yesMessage": "Tammy said YES to a virtual date tomorrow night!",
-    "yesSubject": "Tammy said yes! 🎉"
+    "customTimeCaption": "or pick another time",
+    "hideScribbleArrow": true,
+    "customTimeRange": { "startHour": 18, "endHour": 21 },
+    "venueTitle": "FaceTime tomorrow!",
+    "yesMessage": "Monica said yes to FaceTime tomorrow night!",
+    "yesSubject": "Monica said yes! 🎉"
   };</script>
   <script src="../assets/app.js"></script>
 </body>
