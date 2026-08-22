@@ -249,6 +249,15 @@ button {
   overflow: visible;
 }
 
+.scribble-arrow[hidden],
+.custom-time-label[hidden] {
+  display: none !important;
+}
+
+.custom-time-row:has(.custom-time-caption:not([hidden])) .scribble-arrow-horizontal {
+  display: none !important;
+}
+
 .scribble-arrow-horizontal {
   width: 72px;
   height: 28px;
