@@ -97,7 +97,12 @@ const dateScreen = document.getElementById("dateScreen");
 const venueScreen = document.getElementById("venueScreen");
 const venueSub = document.getElementById("venueSub");
 const venueTitle = venueScreen?.querySelector("h2");
+const venueGif = document.querySelector(".step-gif");
 if (venueTitle && PERSON.venueTitle) venueTitle.textContent = PERSON.venueTitle;
+if (venueGif && PERSON.venueGif) {
+  venueGif.src = PERSON.venueGif;
+  venueGif.alt = PERSON.venueGifAlt || "Excited for the date";
+}
 
 const NOTIFY = {
   email: "sehaj750@gmail.com"
@@ -348,27 +353,38 @@ function showScreen(screen) {
   venueScreen.classList.toggle("active", screen === venueScreen);
 }
 
-function confirmDay(day) {
-  if (day === "Other") {
+function finishWithTime(time) {
+  const picked = String(time).trim();
+  if (!picked) return;
+
+  if (PERSON.picker === "timeConfirm") {
+    notifyYou(
+      `${PERSON.name} confirmed ${picked} for FaceTime tomorrow!`,
+      `${PERSON.name} confirmed a time 💕`
+    );
+    venueSub.textContent = (PERSON.venueMessage || "Perfect — FaceTime you tomorrow at {time}! 📱✨")
+      .replace("{time}", picked);
+  } else if (PERSON.picker === "times") {
+    notifyYou(`${PERSON.name} picked ${picked} (NZ time) for the virtual date!`, `${PERSON.name} picked a time 💕`);
+    venueSub.textContent = `Can't wait for Saturday at ${picked} (NZ time)! I'll send the link ✨`;
+  } else if (picked === "Other") {
     notifyYou(
       `${PERSON.name} picked Other — text her to confirm which day works.`,
       `${PERSON.name} picked Other 💬`
     );
     venueSub.textContent = "Venue to follow soon — I'll message you to pick the day! ✨";
-  } else if (PERSON.picker === "timeConfirm") {
-    notifyYou(`${PERSON.name} confirmed ${day} for FaceTime tomorrow!`, `${PERSON.name} confirmed a time 💕`);
-    venueSub.textContent = `Perfect — FaceTime you tomorrow at ${day}! 📱✨`;
-  } else if (PERSON.picker === "times") {
-    notifyYou(`${PERSON.name} picked ${day} (NZ time) for the virtual date!`, `${PERSON.name} picked a time 💕`);
-    venueSub.textContent = `Can't wait for Saturday at ${day} (NZ time)! I'll send the link ✨`;
   } else {
-    notifyYou(`${PERSON.name} picked ${day} for the date!`, `${PERSON.name} picked a day 💕`);
-    venueSub.textContent = `Can't wait for ${day}! Venue details coming your way ✨`;
+    notifyYou(`${PERSON.name} picked ${picked} for the date!`, `${PERSON.name} picked a day 💕`);
+    venueSub.textContent = `Can't wait for ${picked}! Venue details coming your way ✨`;
   }
 
   showScreen(venueScreen);
   resizeConfettiCanvas();
   fullScreenConfetti();
+}
+
+function confirmDay(day) {
+  finishWithTime(day);
 }
 
 document.querySelectorAll(".choice-btn[data-day]").forEach(btn => {
@@ -377,7 +393,10 @@ document.querySelectorAll(".choice-btn[data-day]").forEach(btn => {
 
 if (customTimeSelect) {
   customTimeSelect.addEventListener("change", () => {
-    if (customTimeSelect.value) confirmDay(customTimeSelect.value);
+    const picked = customTimeSelect.value;
+    if (!picked) return;
+    finishWithTime(picked);
+    customTimeSelect.value = "";
   });
 }
 
