@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title></title>
+  <link rel="stylesheet" href="../assets/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+  <canvas id="confettiCanvas"></canvas>
+
+  <main class="card">
+    <div id="askScreen">
+      <svg class="art" viewBox="0 0 320 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="fur" x1="0" x2="1">
+            <stop offset="0" stop-color="#f7c7a1"/>
+            <stop offset="1" stop-color="#f2a97b"/>
+          </linearGradient>
+          <linearGradient id="heart" x1="0" x2="1">
+            <stop offset="0" stop-color="#ff4d7d"/>
+            <stop offset="1" stop-color="#ff1f68"/>
+          </linearGradient>
+        </defs>
+        <path d="M250 50 C250 33 270 25 282 38 C294 25 314 33 314 50 C314 78 282 92 282 106 C282 92 250 78 250 50Z" fill="url(#heart)"/>
+        <path d="M90 120 C90 70 140 40 190 60 C240 40 290 70 290 120 C290 180 240 210 190 210 C140 210 90 180 90 120Z" fill="url(#fur)"/>
+        <path d="M110 92 L95 55 L140 78 Z" fill="#f2a97b"/>
+        <path d="M270 92 L285 55 L240 78 Z" fill="#f2a97b"/>
+        <circle cx="160" cy="130" r="8"/>
+        <circle cx="220" cy="130" r="8"/>
+        <path d="M190 144 C186 144 182 148 182 152 C182 160 190 164 190 170 C190 164 198 160 198 152 C198 148 194 144 190 144Z" fill="#ff7aa2"/>
+      </svg>
+
+      <h1 id="askTitle"></h1>
+      <p class="ask-sub" id="askSub" hidden></p>
+
+      <section class="button-zone" id="zone">
+        <button id="yesBtn">Yes</button>
+        <div class="no-btn-shell" id="noBtnShell">
+          <button id="noBtn">No</button>
+        </div>
+      </section>
+
+      <div class="hint" id="hint">“No” seems a bit shy 😈</div>
+    </div>
+
+    <section class="step-screen" id="dateScreen">
+      <h2 id="pickerTitle">Next Week</h2>
+      <p class="step-sub" id="pickerSub">When are you free?</p>
+      <p class="picker-note" id="pickerNote" hidden></p>
+      <div class="choice-zone">
+        <button class="choice-btn" type="button" data-day="Wednesday">Wednesday</button>
+        <button class="choice-btn" type="button" data-day="Thursday">Thursday</button>
+        <button class="choice-btn" type="button" data-day="Friday">Friday</button>
+        <button class="choice-btn other-option" type="button" data-day="Other">Other</button>
+      </div>
+      <div class="custom-time-row" id="customTimeRow" hidden>
+        <p class="custom-time-caption" id="customTimeCaption" hidden>or pick another time</p>
+        <span class="custom-time-label" id="customTimeLabel" hidden>See thats me making adjustments</span>
+        <svg class="scribble-arrow scribble-arrow-horizontal" viewBox="0 0 92 36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" hidden>
+          <path
+            d="M4 22 C12 8, 18 30, 28 16 C36 6, 42 28, 54 18 C62 11, 70 22, 78 17"
+            fill="none"
+            stroke="#111827"
+            stroke-width="2.2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M68 8 L82 16 L66 26"
+            fill="none"
+            stroke="#111827"
+            stroke-width="2.2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <svg class="scribble-arrow scribble-arrow-vertical" viewBox="0 0 36 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" hidden>
+          <path
+            d="M18 4 C24 12, 12 18, 18 26 C24 34, 12 40, 18 48 C24 56, 14 60, 18 64"
+            fill="none"
+            stroke="#111827"
+            stroke-width="2.2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M12 56 L18 68 L24 56"
+            fill="none"
+            stroke="#111827"
+            stroke-width="2.2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <select id="customTimeSelect" class="custom-time-select" aria-label="Choose your own time">
+          <option value="">Pick a time</option>
+        </select>
+      </div>
+    </section>
+
+    <section class="step-screen" id="venueScreen">
+      <h2>Venue to follow soon</h2>
+      <p class="step-sub" id="venueSub">Can't wait — details coming your way! ✨</p>
+      <img
+        class="step-gif"
+        src="https://media.giphy.com/media/3o7abKhOpu0NwenH3O/giphy.gif"
+        alt="Excited for the date"
+      />
+    </section>
+  </main>
+
+  <script>window.PERSON = {
+  "name": "Guntas",
+  "slug": "guntas",
+  "askTitle": "Guntas, will you go on a date with me on the 27th of November?",
+  "picker": "slots",
+  "dateLabel": "27 November",
+  "pickerTitle": "27 November",
+  "pickerSub": "Which time works?",
+  "choices": [
+    "8 PM",
+    "9 PM",
+    "10 PM",
+    "11 PM"
+  ],
+  "venueTitle": "Venue to follow soon",
+  "venueMessage": "Can't wait for 27 November at {time}! Venue details coming your way ✨",
+  "yesMessage": "Guntas said yes to a date on 27 November!",
+  "yesSubject": "Guntas said yes! 🎉"
+};</script>
+  <script src="../assets/app.js"></script>
+</body>
+</html>

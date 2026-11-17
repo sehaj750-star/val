@@ -8,6 +8,7 @@ Personalized date invite pages hosted on GitHub Pages.
 |--------|-----|
 | Tammy  | https://sehaj750-star.github.io/val/tammy/ |
 | Monica | https://sehaj750-star.github.io/val/monica/ (FaceTime, confirm 7 PM) |
+| Guntas | https://sehaj750-star.github.io/val/guntas/ (27 November, 8–11 PM) |
 
 ## Add someone new
 

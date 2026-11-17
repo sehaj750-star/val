@@ -376,6 +376,11 @@ function finishWithTime(time) {
   } else if (PERSON.picker === "times") {
     notifyYou(`${PERSON.name} picked ${picked} (NZ time) for the virtual date!`, `${PERSON.name} picked a time 💕`);
     venueSub.textContent = `Can't wait for Saturday at ${picked} (NZ time)! I'll send the link ✨`;
+  } else if (PERSON.picker === "slots") {
+    const when = PERSON.dateLabel ? `${PERSON.dateLabel} at ${picked}` : picked;
+    notifyYou(`${PERSON.name} picked ${when} for the date!`, `${PERSON.name} picked a time 💕`);
+    venueSub.textContent = (PERSON.venueMessage || `Can't wait for ${when}! Venue details coming your way ✨`)
+      .replace("{time}", picked);
   } else if (picked === "Other") {
     notifyYou(
       `${PERSON.name} picked Other — text her to confirm which day works.`,
